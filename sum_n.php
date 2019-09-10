@@ -2,10 +2,7 @@
 // sum_n.php
 
 function sum_n($num){
-    $result = 0;
-    for($i = 1; $i<=$num; $i++){
-        $result += $i;
-    }
+    $result = (1 + $num) * $num / 2;
     return $result;
 }
 
