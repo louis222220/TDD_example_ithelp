@@ -8,4 +8,12 @@ class PaymentList
     {
         $this->list[] = $_salary;
     }
+
+    public function calculate_sum(){
+        $result = 0;
+        for ($i = 0; $i<count($this->list); $i++){
+            $result += $this->list[$i]->value;
+        }
+        return $result;
+    }
 }
