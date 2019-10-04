@@ -11,24 +11,13 @@
 |
 */
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\PostController;
 use App\Post;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/posts/', function () {
-    $response = "All Posts: ";
-    $posts = Post::all();
-    foreach ($posts as $post) {
-        $response .= $post;
-    }
-    return $response;
-});
+Route::get('/posts/', 'PostController@allPost');
 
-Route::get('/posts/insert', function(Request $request) {
-    $post = new Post;
-    $post->post_text = $request->input('post_text');
-    $post->save();
-});
+Route::get('/posts/insert', 'PostController@insertPost');
