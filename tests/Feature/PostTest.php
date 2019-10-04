@@ -10,6 +10,13 @@ use App\Post;
 class PostTest extends TestCase
 {
     use RefreshDatabase;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->withoutExceptionHandling();
+    }
     
     public function testAllPost()
     {
@@ -29,5 +36,15 @@ class PostTest extends TestCase
         $this->assertDatabaseHas('posts', [
             'post_text' => "Hello, I'm Louis."
         ]);
+    }
+
+    public function testInsertPostByGetRoute()
+    {
+        $text = "It's a new post.";
+
+        $this->get("/posts/insert?post_text=$text");
+        $response = $this->get('/posts/');
+
+        $response->assertSee($text);
     }
 }

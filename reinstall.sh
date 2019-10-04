@@ -20,4 +20,6 @@ else
     echo '.env exist.'
 fi
 
+touch database/database.sqlite
+
 echo "-----"

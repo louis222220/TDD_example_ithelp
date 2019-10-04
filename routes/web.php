@@ -11,6 +11,7 @@
 |
 */
 
+use Illuminate\Http\Request;
 use App\Post;
 
 Route::get('/', function () {
@@ -24,4 +25,10 @@ Route::get('/posts/', function () {
         $response .= $post;
     }
     return $response;
+});
+
+Route::get('/posts/insert', function(Request $request) {
+    $post = new Post;
+    $post->post_text = $request->input('post_text');
+    $post->save();
 });
