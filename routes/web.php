@@ -11,13 +11,16 @@
 |
 */
 
-use App\Http\Controllers\PostController;
-use App\Post;
-
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/posts/', 'PostController@allPost');
+Route::get('/post', 'PostController@allPost');
 
-Route::get('/posts/insert', 'PostController@insertPost');
+Route::get('/post/insert', 'PostController@insertPost');
+
+Route::get('/post/form', function () {
+    return view('post_form');
+});
+
+Route::post('/post', 'PostController@insertPost');

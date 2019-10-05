@@ -22,7 +22,7 @@ class PostTest extends TestCase
     {
         $post = factory(Post::class)->create();
         
-        $response = $this->get('/posts/');
+        $response = $this->get('/post');
         $response->assertStatus(200);
         $response->assertSee('All Posts:');
 
@@ -42,9 +42,22 @@ class PostTest extends TestCase
     {
         $text = "It's a new post.";
 
-        $this->get("/posts/insert?post_text=$text");
-        $response = $this->get('/posts/');
+        $this->get("/post/insert?post_text=$text");
+        $response = $this->get('/post');
 
+        $response->assertSee($text);
+    }
+
+    public function testInsertPostByPostRoute()
+    {
+        $text = "It's a new post.";
+
+        $this->post('/post',
+            ['post_text' => $text ]);
+
+        $this->assertDatabaseHas('posts', ['post_text' => $text ]);
+
+        $response = $this->get('/post');
         $response->assertSee($text);
     }
 }
