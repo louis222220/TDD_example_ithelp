@@ -21,7 +21,7 @@ Route::get('/post/insert', 'PostController@insertPost');
 
 Route::get('/post/form', function () {
     return view('post_form');
-});
+})->middleware('auth');
 
 Route::post('/post', 'PostController@insertPost');
 
