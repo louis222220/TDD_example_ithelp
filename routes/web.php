@@ -17,8 +17,6 @@ Route::get('/', function () {
 
 Route::get('/post', 'PostController@allPost');
 
-Route::get('/post/insert', 'PostController@insertPost');
-
 Route::get('/post/form', function () {
     return view('post_form');
 })->middleware('auth');

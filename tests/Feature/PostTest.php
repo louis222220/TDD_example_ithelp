@@ -6,6 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Post;
+use App\User;
 
 class PostTest extends TestCase
 {
@@ -17,7 +18,7 @@ class PostTest extends TestCase
 
         $this->withoutExceptionHandling();
     }
-    
+
     public function testAllPost()
     {
         $post = factory(Post::class)->create();
@@ -38,24 +39,22 @@ class PostTest extends TestCase
         ]);
     }
 
-    public function testInsertPostByGetRoute()
-    {
-        $text = "It's a new post.";
-
-        $this->get("/post/insert?post_text=$text");
-        $response = $this->get('/post');
-
-        $response->assertSee($text);
-    }
-
     public function testInsertPostByPostRoute()
     {
+        $users = factory(User::class, 2)->create();
+        $second_user = $users[1];
+
         $text = "It's a new post.";
 
-        $this->post('/post',
-            ['post_text' => $text ]);
+        $this->actingAs($second_user)
+             ->post('/post',[
+                'post_text' => $text
+        ]);
 
-        $this->assertDatabaseHas('posts', ['post_text' => $text ]);
+        $this->assertDatabaseHas('posts', [
+            'post_text' => $text,
+            'user_id' => $second_user->id
+        ]);
 
         $response = $this->get('/post');
         $response->assertSee($text);
