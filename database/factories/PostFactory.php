@@ -2,10 +2,13 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
+use Faker\Generator as Faker;
 use App\Post;
+use App\User;
 
-$factory->define(Post::class, function () {
+$factory->define(Post::class, function (Faker $faker) {
     return [
-        'post_text' => "Hello, I'm Louis."
+        'post_text' => $faker->text,
+        'user_id' => factory(User::class)->create()->id
     ];
 });

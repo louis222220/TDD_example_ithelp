@@ -19,32 +19,12 @@ class PostTest extends TestCase
         $this->withoutExceptionHandling();
     }
 
-    public function testAllPost()
-    {
-        $post = factory(Post::class)->create();
-        
-        $response = $this->get('/post');
-        $response->assertStatus(200);
-        $response->assertSee('All Posts:');
-
-        $response->assertSee("Hello, I'm Louis.");
-    }
-
-    public function testInsertPost()
-    {
-        $post = factory(Post::class)->create();
-        
-        $this->assertDatabaseHas('posts', [
-            'post_text' => "Hello, I'm Louis."
-        ]);
-    }
-
     public function testInsertPostByPostRoute()
     {
         $users = factory(User::class, 2)->create();
         $second_user = $users[1];
 
-        $text = "It's a new post.";
+        $text = "new post.";
 
         $this->actingAs($second_user)
              ->post('/post',[

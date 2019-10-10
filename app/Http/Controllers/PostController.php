@@ -8,6 +8,7 @@ use App\Post;
 
 class PostController extends Controller
 {
+    
     public function insertPost(Request $request)
     {
         $post = new Post;
@@ -18,11 +19,7 @@ class PostController extends Controller
 
     public function allPost()
     {
-        $response = "All Posts: ";
-        $posts = Post::all();
-        foreach ($posts as $post) {
-            $response .= $post;
-        }
-        return $response;
+        return view('post')
+                ->with('posts', Post::all());
     }
 }
