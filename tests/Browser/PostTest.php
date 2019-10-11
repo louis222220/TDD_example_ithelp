@@ -19,8 +19,9 @@ class PostTest extends DuskTestCase
             
             $browser->visit('/post')
                     ->assertSee('Post:')
+                    ->assertSee($posts[1]->user->name)
                     ->assertSee($posts[1]->post_text);
-
         });
     }
+
 }

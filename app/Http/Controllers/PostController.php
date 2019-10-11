@@ -15,6 +15,7 @@ class PostController extends Controller
         $post->post_text = $request->input('post_text');
         $post->user_id = Auth::id();
         $post->save();
+        return redirect('/post');
     }
 
     public function allPost()

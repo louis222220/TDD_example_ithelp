@@ -7,13 +7,15 @@
             <h1 class="display-4">Post:</h1>
 
             @foreach ($posts as $post)
-                <div class="card">
-                    <div class="card-header">User: {{ $post->user_id }}</div>
+                <p>
+                    <div class="card">
+                        <div class="card-header">{{ $post->user->name }}</div>
 
-                    <div class="card-body">
-                        {{ $post->post_text }}
+                        <div class="card-body">
+                            {{ $post->post_text }}                        
+                        </div>
                     </div>
-                </div>
+                </p>
             @endforeach
             
         </div>

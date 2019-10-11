@@ -32,7 +32,9 @@ class PostFormTest extends DuskTestCase
             $browser->loginAs($second_user)
                     ->visit('/post/form')
                     ->type('post_text', "a testing post")
-                    ->press('送出貼文');
+                    ->press('Send the post')
+                    ->assertPathIs('/post')
+                    ->assertSee('Post:');
         });
 
         $this->assertDatabaseHas('posts', [
