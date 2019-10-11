@@ -39,4 +39,24 @@ class PostTest extends TestCase
         $response = $this->get('/post');
         $response->assertSee($text);
     }
+
+    public function testCommentRoute()
+    {
+        $post = factory(Post::class)->create();
+        $user = factory(User::class)->create();
+
+        $text = "new comment";
+
+        $this->actingAs($user)
+            ->post('/post/comment', [
+            'post_id' => $post->id,
+            'comment_text' => $text
+        ]);
+
+        $this->assertDatabaseHas('comments', [
+            'post_id' => $post->id,
+            'user_id' => $user->id,
+            'comment_text' => $text
+        ]);
+    }
 }
